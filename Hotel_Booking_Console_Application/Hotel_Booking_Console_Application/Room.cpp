@@ -5,20 +5,34 @@
 
 int Room::s_idGenerator{ 1 };
 
-Room::Room()
+Room::Room(RoomType type)
+	: m_roomType{ type }
 {
 	m_roomNumber = s_idGenerator++; // assign current value of s_idGenerator, then increment generator
 }
+
+
+Room::Room(const Room& room)
+	: m_roomType{ room.m_roomType }, 
+	m_amenities{ std::move(room.m_amenities) },
+	m_bookedDates{ std::move(room.m_bookedDates) },
+	m_roomNumber{ room.m_roomNumber }
+{
+	s_idGenerator = room.s_idGenerator;
+}
+
 
 void Room::setRoomType(const RoomType& type)
 {
 	m_roomType = type;
 }
 
+
 void Room::addAmenity(const Amenity& amenity)
 {
-	m_amenities.push_back(std::move(amenity));
+	m_amenities.push_back(amenity);
 }
+
 
 void Room::addBooking(Date& startDate, int duration)
 {
@@ -28,8 +42,6 @@ void Room::addBooking(Date& startDate, int duration)
 	for (int i{ 0 }; i < duration; ++i)
 		m_bookedDates.push_back(startDate++);
 }
-
-
 
 
 bool Room::checkIfBooked(Date& startDate, int duration) const
@@ -54,6 +66,7 @@ bool Room::checkIfBooked(Date& startDate, int duration) const
 	return bookingFailed;
 }
 
+
 void Room::printBookedDate(const Date& date) const
 {
 	std::cout << date << " - date is already booked!\n";
@@ -74,5 +87,11 @@ std::ostream& operator<< (std::ostream& out, const Room& room)
 		out << "Family Sized Bedroom";	
 		break;
 	}
+
+	out << "\n\tincludes: ";
+
+	for (const auto& amenity : room.m_amenities)
+		out << amenity;
+
 	return out;
 }

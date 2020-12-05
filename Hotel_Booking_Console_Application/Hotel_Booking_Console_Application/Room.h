@@ -8,6 +8,7 @@ class Room
 {
 public:
 	using amenityList_t = std::vector<Amenity>;
+	using amenityList_t = std::vector<Amenity>;
 	using bookedDates_t = std::vector<Date>;
 
 	enum RoomType
@@ -18,8 +19,9 @@ public:
 	};
 
 public:
-	Room();
-	
+	Room(RoomType type);
+	Room(const Room& room);
+
 	void setRoomType(const RoomType& type);
 	void addAmenity(const Amenity& amenity);
 	void addBooking(Date& startDate, int duration);
