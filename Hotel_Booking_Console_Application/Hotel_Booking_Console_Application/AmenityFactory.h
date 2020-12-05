@@ -1,12 +1,13 @@
 #pragma once
 
 #include "Amenity.h"
+#include <memory>
 #include <vector>
 
 class AmenityFactory
 {
 public:
-	using amenityList_t = std::vector<Amenity*>;
+	using amenityList_t = std::vector<std::shared_ptr<Amenity>>;
 
 	enum class AmenityLevel
 	{
