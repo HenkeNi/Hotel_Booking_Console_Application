@@ -8,9 +8,8 @@
 
 class ContactDetails
 {
-	
-
 public:
+	ContactDetails();
 	ContactDetails(std::optional<std::string> email, std::optional<std::string> phone, std::shared_ptr<Address> address);
 	
 	// NEEDED?

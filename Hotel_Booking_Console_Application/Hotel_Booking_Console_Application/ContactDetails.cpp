@@ -1,6 +1,11 @@
 #include "ContactDetails.h"
 #include <iostream>
 
+
+ContactDetails::ContactDetails()
+{
+}
+
 ContactDetails::ContactDetails(std::optional<std::string> email, std::optional<std::string> phone, std::shared_ptr<Address> address)
 	: m_emailAddress{ email }, m_phoneNumber{ phone }, m_address{ address }
 {
